@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gemeinschaftsprojekt – Auswertung</title>
+<style>
+:root{color-scheme:light dark;--bg:#f4f2ea;--card:#fff;--ink:#1f2a1d;--mute:#667060;--line:#d8d4c4;--acc:#3d8b3d;--accink:#fff;--bad:#b3392f;--sel:#e4f2e0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181a;--card:#1f2527;--ink:#e8ece4;--mute:#97a191;--line:#34403a;--acc:#5db85d;--accink:#0d1a0d;--bad:#e5766c;--sel:#24402a}}
+:root[data-theme="dark"]{--bg:#15181a;--card:#1f2527;--ink:#e8ece4;--mute:#97a191;--line:#34403a;--acc:#5db85d;--accink:#0d1a0d;--bad:#e5766c;--sel:#24402a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 60px}
+h1{font-size:1.6rem;margin:.2em 0}
+.tabs{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}
+.tabs button,.btn{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 14px;border-radius:10px;cursor:pointer}
+.tabs button.on,.btn.pri{background:var(--acc);color:var(--accink);border-color:var(--acc);font-weight:600}
+textarea{width:100%;box-sizing:border-box;font:inherit;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);min-height:70px;resize:vertical}
+.note{font-size:.85rem;color:var(--mute);margin:.3em 0}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:14px 0}
+.hl{border-color:var(--acc);background:var(--sel)}
+.bar{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:.95rem}
+.bar .lb{width:40%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar .tr{flex:1;background:var(--line);border-radius:6px;height:14px;overflow:hidden}
+.bar .fi{background:var(--acc);height:100%}
+.bar .vl{width:150px;text-align:right;font-size:.82rem;color:var(--mute)}
+.warn{color:var(--bad)}
+</style></head>
+<body><div class="wrap">
+<h1>Auswertung 📊</h1>
+<div class="tabs"><button id="t1" class="on">Auswertung Umfrage 1</button><button id="t2">Auswertung Umfrage 2</button></div>
+<div id="c"></div>
+<div class="box"><b>Weitere Codes dazurechnen</b>
+<p class="note" id="pn"></p>
+<textarea id="paste"></textarea>
+<p><button class="btn pri" id="add">Dazurechnen</button></p></div>
+</div>
+
+<script>
+const E={1:["MC1:eyJuIjoiTWFydmluIiwiciI6eyJiaW9tIjpbOSw1LDZdLCJ0aGVtYSI6WzMsNiw0XSwic3RpbCI6WzYsNywwXSwicGFsIjpbMiwzLDVdLCJnZWIiOlswLDUsNl19LCJ4Ijp7ImJpb20iOlsyMCwxOSwxNSwxOF0sInRoZW1hIjpbXSwic3RpbCI6W10sInBhbCI6W10sImdlYiI6W119LCJpIjp7ImJpb20iOiIiLCJ0aGVtYSI6IiIsInN0aWwiOiIiLCJwYWwiOiIiLCJnZWIiOiIifSwidCI6WzAsNSwxLDcsOF0sInR4IjoiIn0=", "MC1:eyJuIjoiU2xheWVyc2tpbGwiLCJyIjp7ImJpb20iOlszLDE4LDZdLCJ0aGVtYSI6WzQsMCwxXSwic3RpbCI6WzAsNSw0XSwicGFsIjpbNyw0LDVdLCJnZWIiOlswLDcsMV19LCJ4Ijp7ImJpb20iOltdLCJ0aGVtYSI6W10sInN0aWwiOltdLCJwYWwiOltdLCJnZWIiOltdfSwiaSI6eyJiaW9tIjoiIiwidGhlbWEiOiIiLCJzdGlsIjoiIiwicGFsIjoiIiwiZ2ViIjoiIn0sInQiOlsxLDcsMTBdLCJ0eCI6IiJ9", "MC1:eyJuIjoiSmVuc2VibMO8bWNoZW4iLCJyIjp7ImJpb20iOlszLDEyLDE0XSwidGhlbWEiOlszLDAsN10sInN0aWwiOlszLDAsN10sInBhbCI6WzcsNSwyXSwiZ2ViIjpbMiwwLDRdfSwieCI6eyJiaW9tIjpbXSwidGhlbWEiOltdLCJzdGlsIjpbXSwicGFsIjpbXSwiZ2ViIjpbXX0sImkiOnsiYmlvbSI6IiIsInRoZW1hIjoiIiwic3RpbCI6IiIsInBhbCI6IiIsImdlYiI6IiJ9LCJ0IjpbMCw1LDEwXSwidHgiOiIifQ==", "MC1:eyJuIjoiTW9uaSIsInIiOnsiYmlvbSI6WzAsMywxNF0sInRoZW1hIjpbMywwLDJdLCJzdGlsIjpbNiwwLDNdLCJwYWwiOlsyXSwiZ2ViIjpbMiwxLDBdfSwieCI6eyJiaW9tIjpbMTksMTgsOV0sInRoZW1hIjpbOF0sInN0aWwiOlsyLDRdLCJwYWwiOltdLCJnZWIiOls3XX0sImkiOnsiYmlvbSI6IiIsInRoZW1hIjoiIiwic3RpbCI6IiIsInBhbCI6IiIsImdlYiI6IiJ9LCJ0IjpbMCwxLDMsNF0sInR4IjoiIn0=", "MC1:eyJuIjoiS2lyYnkiLCJyIjp7ImJpb20iOls0LDE4LDEyXSwidGhlbWEiOlswLDUsM10sInN0aWwiOlswLDEsM10sInBhbCI6WzYsNSw3XSwiZ2ViIjpbMCw3LDRdfSwieCI6eyJiaW9tIjpbXSwidGhlbWEiOltdLCJzdGlsIjpbXSwicGFsIjpbXSwiZ2ViIjpbXX0sImkiOnsiYmlvbSI6IiIsInRoZW1hIjoiIiwic3RpbCI6IiIsInBhbCI6IiIsImdlYiI6IiJ9LCJ0IjpbMTAsOSw4LDQsNiw3LDMsMiwxXSwidHgiOiIifQ=="],2:["MC3:eyJuIjoiTWFydmluIiwiYSI6eyJyaWNodCI6WzIsMiwxLDIsMV0sIm1peCI6MiwiZWxlbSI6WzAsMSwxMSwxMF19LCJ4Ijp7InJpY2h0IjoiIiwibWl4IjoiIiwiZWxlbSI6IiJ9fQ==", "MC3:eyJuIjoiTW9uaSIsImEiOnsicmljaHQiOlsyLC0yLDEsMiwxXSwibWl4IjoyLCJlbGVtIjpbMSwyLDksOF19LCJ4Ijp7InJpY2h0IjoiIiwibWl4IjoiIiwiZWxlbSI6IiJ9fQ==", "MC3:eyJuIjoiSmVuc2VibMO8bWNoZW4iLCJhIjp7InJpY2h0IjpbLTIsMiwxLDIsMV0sIm1peCI6MCwiZWxlbSI6WzIsMyw0LDUsOSwxMSwwLDFdfSwieCI6eyJyaWNodCI6IiIsIm1peCI6IiIsImVsZW0iOiIifX0=", "MC3:eyJuIjoiS2lyYnkiLCJhIjp7InJpY2h0IjpbMiwwLDIsMSwyXSwibWl4IjoyLCJlbGVtIjpbOCw2LDEwLDIsMSw0LDBdfSwieCI6eyJyaWNodCI6IiIsIm1peCI6IiIsImVsZW0iOiIifX0=", "MC3:eyJuIjoiU2xheWVyc2tpbGwiLCJhIjp7InJpY2h0IjpbMiwyLDIsMSwtMl0sIm1peCI6LTEsImVsZW0iOlsxLDEwLDBdfSwieCI6eyJyaWNodCI6IiIsIm1peCI6IiIsImVsZW0iOiIifX0="]};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const dec=s=>decodeURIComponent(escape(atob(s)));
+let cur=1;
+function parse(codes){const P={};let bad=0;codes.forEach(t=>{try{const p=JSON.parse(dec(t.slice(4)));if(!p||!p.n)throw 0;P[p.n.toLowerCase()]=p}catch(_){bad++}});return{L:Object.values(P),bad:bad}}
+const head=(L,bad)=>`<p><b>${L.length}</b> Teilnehmende: ${L.map(p=>esc(p.n)).join(", ")}${bad?` <span class="warn">(${bad} unlesbar)</span>`:""}</p>`;
+const bar=(lb,w,vl,warn)=>`<div class="bar"><span class="lb">${lb}</span><span class="tr"><span class="fi" style="display:block;width:${w}%"></span></span><span class="vl ${warn?"warn":""}">${vl}</span></div>`;
+const ideas=(L,get)=>{const tx=L.filter(p=>(get(p)||"").trim());return tx.length?`<p class="note"><b>Eigene Ideen:</b></p>`+tx.map(p=>`<p class="note">${esc(p.n)}: „${esc(get(p))}“</p>`).join(""):""};
+
+const C1=[
+["biom","🌍 Biom",["Ebenen & Wiesen","Wälder","Dunkelwald & Blasser Garten","Kirschhain","Taiga","Schnee & Eis","Dschungel","Sümpfe","Savanne","Wüste","Ödland (Badlands)","Schneegipfel","Hügel & Felsgipfel","Strand & Küste","Flüsse","Ozean","Warmer Ozean & Korallen","Pilzinsel","Höhlenwelten","Nether","The End"]],
+["thema","✨ Thema",["Fantasy-Reich","Sci-Fi","Piraten","Mythologie","Endzeit / Post-Apokalypse","Märchenwelt","Mystery & Gruselig","Natur & Frieden","Großstadt"]],
+["stil","🎨 Baustil",["Mittelalter","Fantasy & Märchen","Modern","Japanisch / Asiatisch","Steampunk & Industrie","Gemütlich & Fachwerk","Antik & Mediterran","Ruinen & Verwunschen"]],
+["pal","🎨 Farbpalette",["Helle Töne","Dunkle Töne","Warme Erdtöne","Kühle Töne","Bunt & knallig","Natur & Grün","Stein & Grau","Underworld","Wenige Farben, klares Schema"]],
+["geb","🏗️ Gemeinsames Gebäude",["Burg oder Festung","Stadt oder Dorf","Tempel / Heiligtum","Hafen mit Schiffen","Magierturm","Freizeitpark","Bibliothek / Museum","Unterirdische Stadt"]]];
+const T1=["Farmen bauen","Blöcke farmen & abbauen","Gebäude bauen","Dekoration & Inneneinrichtung","Landschaft gestalten","Redstone & Technik","Beleuchtung & Atmosphäre","Straßen, Wege & Brücken","Planung & Koordination","Rüstung, Tränke & Vorräte","Hilfe, wo gerade nötig"];
+
+function r1(){
+  const {L,bad}=parse(E[1]),n=L.length;
+  let gl="",h="";
+  C1.forEach(([k,t,nm])=>{
+    const pts=nm.map(()=>0),fav=nm.map(()=>0),no=nm.map(()=>0);
+    L.forEach(p=>{((p.r||{})[k]||[]).forEach((j,i)=>{if(j<nm.length){pts[j]+=3-i;fav[j]++}});((p.x||{})[k]||[]).forEach(j=>{if(j<nm.length)no[j]++})});
+    const idx=nm.map((_,j)=>j).filter(j=>pts[j]||no[j]).sort((a,b)=>pts[b]-pts[a]||no[a]-no[b]);
+    const mx=Math.max(1,...pts);
+    const top=idx.filter(j=>pts[j]===mx);
+    if(top.length&&mx>0)gl+=`<p class="note"><b>${t}:</b> ${top.map(j=>esc(nm[j])).join(" / ")} (${mx} P)</p>`;
+    h+=`<div class="box"><b>${t}</b>`+idx.map((j,i)=>bar(`${i===0&&pts[j]>0?"★ ":""}${esc(nm[j])}`,pts[j]/mx*100,`${pts[j]} P${fav[j]?` · ${fav[j]}×`:""}${no[j]?` · ✕${no[j]}`:""}`,n>=3&&no[j]*2>=n)).join("")
+      +(nm.length>idx.length?`<p class="note">${nm.length-idx.length} weitere Optionen ohne Stimmen.</p>`:"")
+      +ideas(L,p=>(p.i||{})[k])+`</div>`;
+  });
+  h+=`<div class="box"><b>🙋 Wer macht was?</b>`+T1.map((t,j)=>{const w=L.filter(p=>(p.t||[]).includes(j)).map(p=>esc(p.n));return `<p class="note"><b>${esc(t)}:</b> ${w.length?w.join(", "):'<span class="warn">noch niemand</span>'}</p>`}).join("")+ideas(L,p=>p.tx)+`</div>`;
+  h+=`<p class="note">P = Punkte (1. Wahl 3, 2. Wahl 2, 3. Wahl 1), × = Anzahl Favoriten, ✕ = No-Gos. Rot: mindestens die Hälfte lehnt es ab. Hinweis: Die Farbpalette wurde während der Abstimmung ergänzt, Zuordnungen ab Position 7 können je nach Version abweichen.</p>`;
+  return head(L,bad)+`<div class="box hl"><b>Auf einen Blick</b>${gl}</div>`+h;
+}
+
+const Q2=[
+{id:"richt",t:"🧭 Richtungen",type:"rate",o:["Schluchtdorf mit Brücken & Wasserfällen","Antike Hafenstadt am Meer","Mittelalterliche Burg mit Türmen","Japanische Burg mit Kirschgarten","Verwunschene Höhle mit Laternen"]},
+{id:"mix",t:"🧩 Mischen?",type:"one",o:["Eine Richtung pur","Zwei Richtungen mischen","Mehrere Zonen mit unterschiedlichem Stil"]},
+{id:"elem",t:"✨ Das will ich sehen",type:"multi",o:["Wasserfälle","Brücken","Laternen & Lichter","Kirschbäume","Hafen & Schiffe","Säulen & Tempel","Türme & Zinnen","Hängende Ranken","Berge im Hintergrund","Gärten & Teiche","Dörfer an Hängen","Pagoden"]}];
+
+function r2(){
+  const {L,bad}=parse(E[2]),n=L.length;
+  let gl="",h="";
+  Q2.forEach(q=>{
+    h+=`<div class="box"><b>${q.t}</b>`;
+    if(q.type==="rate"){
+      const r=q.o.map((o,i)=>{let s=0,a=0,b=0,c=0;L.forEach(p=>{const v=((p.a[q.id]||[])[i])||0;s+=v;if(v===2)a++;if(v===1)b++;if(v===-2)c++});return{o:o,s:s,a:a,b:b,c:c}}).sort((x,y)=>y.s-x.s);
+      const mx=Math.max(1,...r.map(x=>x.s));
+      gl+=`<p class="note"><b>${q.t}:</b> ${r.filter(x=>x.s===r[0].s).map(x=>esc(x.o)).join(" / ")} (${r[0].s} P)</p>`;
+      h+=r.map((x,i)=>bar(`${i===0&&x.s>0?"★ ":""}${esc(x.o)}`,Math.max(0,x.s)/mx*100,`${x.s} P · 👍${x.a} 👌${x.b} 👎${x.c}`,n>=3&&x.c*2>=n)).join("");
+    }else{
+      const c=q.o.map((o,i)=>[o,L.filter(p=>q.type==="one"?p.a[q.id]===i:(p.a[q.id]||[]).includes(i)).length]).sort((x,y)=>y[1]-x[1]);
+      const k=q.type==="one"?1:3;
+      gl+=`<p class="note"><b>${q.t}:</b> ${c.slice(0,k).filter(x=>x[1]>0).map(x=>`${esc(x[0])} (${x[1]})`).join(", ")||"–"}</p>`;
+      h+=c.map(x=>bar(esc(x[0]),x[1]/n*100,x[1])).join("");
+      if(q.type==="one"){const no=L.filter(p=>(p.a[q.id]??-1)<0).length;if(no)h+=`<p class="note">${no} ohne Antwort.</p>`}
+    }
+    h+=ideas(L,p=>(p.x||{})[q.id])+`</div>`;
+  });
+  h+=`<p class="note">P = Punkte (👍 2, 👌 1, 👎 −2). Rot: mindestens die Hälfte sagt Nein.</p>`;
+  return head(L,bad)+`<div class="box hl"><b>Auf einen Blick</b>${gl}</div>`+h;
+}
+
+function show(){
+  $("c").innerHTML=cur===1?r1():r2();
+  $("t1").classList.toggle("on",cur===1);$("t2").classList.toggle("on",cur===2);
+  $("pn").textContent=cur===1?"Codes aus Umfrage 1 (beginnen mit MC1:) einfügen.":"Codes aus Umfrage 2 (beginnen mit MC3:) einfügen.";
+}
+$("t1").onclick=()=>{cur=1;show()};$("t2").onclick=()=>{cur=2;show()};
+$("add").onclick=()=>{
+  const m=$("paste").value.match(cur===1?/MC1:[A-Za-z0-9+\/=]+/g:/MC3:[A-Za-z0-9+\/=]+/g)||[];
+  if(m.length){E[cur]=E[cur].concat(m);$("paste").value="";show()}
+};
+show();
+</script></body></html>
